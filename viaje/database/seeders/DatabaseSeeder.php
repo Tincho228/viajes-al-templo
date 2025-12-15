@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Stake;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,9 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+        Stake::factory()->create([
+            'name' => 'San Rafael',
+            'address' => 'Maza 178, San Rafael, Mendozza',
+        ]);
     }
 }
