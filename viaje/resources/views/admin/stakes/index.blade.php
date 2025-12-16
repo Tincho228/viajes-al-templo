@@ -44,9 +44,19 @@
                             {{ $stake->address }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href="{{ route('admin.stakes.edit', $stake) }}" class="text-white bg-blue-700 text-xs p-2">
+                            <div class="flex space-x-2">
+                                <a href="{{ route('admin.stakes.edit', $stake) }}" class="text-white bg-blue-700 text-xs p-2">
                                 Editar
-                            </a>
+                                </a>
+                                <form class="delete-form" action="{{route('admin.stakes.destroy', $stake)}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+
+                                    <button class="text-white bg-red-700 text-xs p-2">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>  
                         </td>
                     </tr>
                 @endforeach
@@ -54,5 +64,31 @@
             </tbody>
         </table>
     </div>
+    @push('js')
+        <script>
+            forms = document.querySelectorAll('.delete-form');
+            forms.forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    Swal.fire({
+                        title: "Estas seguro?",
+                        text: "No podras revertir los cambios!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si, eliminar!",
+                        cancelButtonText: "No, cancelar"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                    });
+                })
+                
+            });
+        </script>
+    @endpush
 
 </x-layouts.app>

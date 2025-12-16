@@ -72,7 +72,19 @@ class StakeController extends Controller
      */
     public function update(Request $request, Stake $stake)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:20',
+            'address'=>'required|string|max:255'
+        ]);
+        $stake->update($data);
+        // Configuring flash variable for sweet alert
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'La informacion de estaca fue actualizada correctamente.',
+        ]);
+
+        return redirect()->route('admin.stakes.edit', $stake);
     }
 
     /**
@@ -80,6 +92,14 @@ class StakeController extends Controller
      */
     public function destroy(Stake $stake)
     {
-        //
+        $stake->delete();
+
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'La estaca fue eliminada correctamente.',
+        ]);
+
+        return redirect()->route('admin.stakes.index');
     }
 }

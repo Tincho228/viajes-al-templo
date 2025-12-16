@@ -1,5 +1,3 @@
-<!-- We have created this new file for admin routes. -->
-<!-- In file bootstrap/app.php we declared the new file to be recognized -->
 <?php
 
 use App\Http\Controllers\Admin\StakeController;

@@ -18,14 +18,12 @@
             <div>
                 <flux:input name="name"
                             value="{{old('name', $stake->name)}}"
-                            label="Nombre" 
-                            description="Estos datos pueden editarse" 
+                            label="Nombre"  
                             placeholder="Ingrese el nombre de la estaca"/>
 
                 <flux:input name="address"
                             value="{{old('address', $stake->address)}}"
-                            label="Direccion" 
-                            description="Estos datos pueden editarse" 
+                            label="Direccion"  
                             placeholder="Ingrese la direccion de la estaca" />
 
                 <flux:button class="mt-4" variant="primary" type="submit">Enviar</flux:button>
