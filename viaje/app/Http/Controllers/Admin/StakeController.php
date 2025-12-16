@@ -41,6 +41,13 @@ class StakeController extends Controller
             'address'=>'required|string|max:255'
         ]);
         Stake::create($data);
+        // Configuring flash variable for sweet alert
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Una nueva estaca fue creada.',
+        ]);
+
         return redirect()->route('admin.stakes.index');
     }
 
@@ -57,7 +64,7 @@ class StakeController extends Controller
      */
     public function edit(Stake $stake)
     {
-        //
+        return view('admin.stakes.edit', compact('stake'));
     }
 
     /**

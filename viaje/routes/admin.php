@@ -7,5 +7,5 @@ use Illuminate\Support\Facades\Route;
 
 
 // All routes have the prefix 'admin' as declared in bootstrap/app.php
-Route::resource('stakes', StakeController::class); 
 // We can access this route using the name 'admin.home'
+Route::resource('stakes', StakeController::class); 
