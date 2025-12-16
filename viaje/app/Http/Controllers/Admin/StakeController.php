@@ -17,7 +17,7 @@ class StakeController extends Controller
         $stakes = Stake::all();
         //fetching by ID, descendent
         /* $stakes = Stake::orderBy('id','desc')->get(); //Could be used when the list  
-        /* of stake
+        /* of stakes is bigger*/
 
 
         return view('admin.stakes.index', compact('stakes'));
