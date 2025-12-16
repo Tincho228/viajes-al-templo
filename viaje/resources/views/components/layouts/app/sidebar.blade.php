@@ -2,10 +2,18 @@
     $groups = [
         'Platform' => [
             [
-                'namespace' => 'Dashboard',
+                'name' => 'Panel de Control',
                 'icon' => 'home',
                 'url' => route('dashboard'),
                 'current' => request()->routeIs('dashboard')
+            ],
+            [
+                'name' => 'Estacas',
+                'icon' => 'home-modern',
+                'url' => route('admin.stakes.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.stakes.*')
             ],
         ]
     ];
@@ -25,11 +33,12 @@
                 <x-app-logo />
             </a>
 
+            {{-- Looping through $groups --}}
             <flux:navlist variant="outline">
                 @foreach ($groups as $group => $links)
                     <flux:navlist.group :heading="$group" class="grid">
                         @foreach ($links as $link)
-                            <flux:navlist.item :icon="$link['icon']" :href="$link['url']" :current="$link['current']" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                            <flux:navlist.item :icon="$link['icon']" :href="$link['url']" :current="$link['current']" wire:navigate>{{$link['name']}}</flux:navlist.item>
                         @endforeach
                     </flux:navlist.group>
                 @endforeach
