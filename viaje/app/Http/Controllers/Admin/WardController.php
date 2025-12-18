@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Stake;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class WardController extends Controller
 {
@@ -84,8 +85,22 @@ class WardController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:20',
             'address' => 'required|string|max:100',
+            'image' => 'nullable|image',
             'stake_id' => 'required|exists:stakes,id'
         ]);
+
+        // Checking image file
+        if($request->hasFile('image')){
+            // Check and replace existing image in public
+            if($ward->image_path){
+                Storage::delete($ward->image_path);
+            }
+
+            // Creating wards folder and image path
+            // Add image path to Ward object
+            $data['image_path'] = Storage::put('wards', $request->image); 
+        }
+
         // Updating ward into database.
         $ward->update($data);
 
@@ -97,7 +112,7 @@ class WardController extends Controller
         ]);
 
         // Redirecting to ward.edit
-        return redirect()->route('admin.wards.edit');
+        return redirect()->route('admin.wards.edit', $ward);
     }
 
     /**

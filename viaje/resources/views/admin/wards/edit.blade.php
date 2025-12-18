@@ -11,11 +11,28 @@
         </flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
-    <div class="bg-white px-6 py-8 shadow-lg rounded-lg">
-        <form action="{{ route('admin.wards.update', $ward) }}" method="post">
+    
+        <form action="{{ route('admin.wards.update', $ward) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div>
+            <div class="relative mb-2">
+
+                <img id="imgPreview" class="w-full aspect-video" 
+
+                     {{-- Check and render image path from Storage --}}
+                     src="{{$ward->image_path ? Storage::url($ward->image_path) : 'https://i0.wp.com/www.bishoprook.com/wp-content/uploads/2021/05/placeholder-image-gray-16x9-1.png?ssl=1' }} " 
+                     alt="No image">
+
+                <div class="absolute top-8 right-8">
+                    <label class="bg-white px-4 py-2 rounded-lg cursor-pointer">
+                        Cambiar imagen
+
+                        {{-- Listening to changes on the input file to generate preview --}}
+                        <input class="hidden" type="file" name="image" accept="image/*" onchange="previewImage(event, '#imgPreview')">
+                    </label>
+                </div>
+            </div>    
+            <div class="bg-white px-6 py-8 shadow-lg rounded-lg space-y-4">
                 <flux:input name="name"
                             value="{{old('name', $ward->name)}}"
                             label="Nombre" 
@@ -42,7 +59,5 @@
                 <flux:button class="mt-4" variant="primary" type="submit">Enviar</flux:button>
             </div>
         </form>
-
-    </div>
 
 </x-layouts.app>
