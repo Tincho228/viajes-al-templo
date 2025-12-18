@@ -15,6 +15,14 @@
                  // Check if we are located in any stakes route
                 'current' => request()->routeIs('admin.stakes.*')
             ],
+            [
+                'name' => 'Barrios',
+                'icon' => 'building-library',
+                'url' => route('admin.wards.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.wards.*')
+            ],
         ]
     ];
 

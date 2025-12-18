@@ -17,7 +17,10 @@ class WardFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'address' => $this->faker->address(),
+            // image_path is nullable
+            'stake_id'=> 1
         ];
     }
 }

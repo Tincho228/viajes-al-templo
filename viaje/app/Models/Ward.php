@@ -10,7 +10,12 @@ class Ward extends Model
     /** @use HasFactory<\Database\Factories\WardFactory> */
     use HasFactory;
 
-    protected $fillable = ['name','address','stake_id']; 
+    protected $fillable = [
+        'name',
+        'address',
+        'image_path',
+        'stake_id'
+    ]; 
 
      /**
      * Get the stake that the ward belongs to.

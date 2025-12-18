@@ -72,11 +72,16 @@ class StakeController extends Controller
      */
     public function update(Request $request, Stake $stake)
     {
+        // Validation
         $data = $request->validate([
             'name' => 'required|string|max:20',
             'address'=>'required|string|max:255'
         ]);
+
+        // Updating
         $stake->update($data);
+
+        // Confirmation message
         // Configuring flash variable for sweet alert
         session()->flash('swal', [
             'icon' => 'success',
@@ -84,6 +89,7 @@ class StakeController extends Controller
             'text' => 'La informacion de estaca fue actualizada correctamente.',
         ]);
 
+        // Redirecting to stkes.edit
         return redirect()->route('admin.stakes.edit', $stake);
     }
 
