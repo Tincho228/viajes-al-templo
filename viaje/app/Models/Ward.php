@@ -22,8 +22,13 @@ class Ward extends Model
      */
     public function stake()
     {
-        // Laravel automáticamente busca la clave foránea 'stakes_id' 
-        // y la tabla 'stakes' basándose en el nombre de la función y el modelo relacionado.
+        // One ward belongs to one stake
         return $this->belongsTo(Stake::class);
+    }
+
+    public function passengers()
+    {
+        // One ward has many passengers
+        return $this->hasMany(Passenger::class);
     }
 }

@@ -19,7 +19,7 @@ class Stake extends Model
      */
     public function wards()
     {
-        // Laravel automáticamente busca la clave foránea 'stakes_id' en la tabla 'wards'.
+        // One stake has many wards.
         return $this->hasMany(Ward::class);
     }
 }

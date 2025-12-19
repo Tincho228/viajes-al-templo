@@ -1,4 +1,3 @@
-<!-- This Migration file creates all scheme table for stakes entity  -->
 
 <?php
 

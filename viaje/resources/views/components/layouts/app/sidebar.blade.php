@@ -23,6 +23,14 @@
                  // Check if we are located in any stakes route
                 'current' => request()->routeIs('admin.wards.*')
             ],
+             [
+                'name' => 'Pasajeros',
+                'icon' => 'user-group',
+                'url' => route('admin.passengers.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.passengers.*')
+            ],
         ]
     ];
 

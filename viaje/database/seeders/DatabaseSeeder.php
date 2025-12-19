@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Passenger;
 use App\Models\User;
 use App\Models\Stake;
 use App\Models\Ward;
 use Illuminate\Database\Seeder;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class DatabaseSeeder extends Seeder
 {
@@ -104,6 +106,9 @@ class DatabaseSeeder extends Seeder
                 'address' => 'Maza 178, Malargue, Mendoza',
                 'stake_id' => 1,
             ],
-    ]);
+        ]);
+
+        // Seeding Passengers table with 60 records
+        Passenger::factory(60)->create();
     }
 }

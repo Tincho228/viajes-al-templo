@@ -36,6 +36,7 @@ class StakeController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation
         $data = $request->validate([
             'name' => 'required|string|max:20',
             'address'=>'required|string|max:255'

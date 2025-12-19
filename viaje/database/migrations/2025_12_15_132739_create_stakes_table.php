@@ -1,6 +1,4 @@
 
-<!-- This Migration file creates all scheme table for stakes entity  -->
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
