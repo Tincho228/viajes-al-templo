@@ -96,6 +96,21 @@
                     @endforeach
                 </flux:select>
 
+                <h1>Sesiones disponibles</h1>
+
+                <ul>
+                    @foreach ($appointments as $appointment)
+
+                        <li>
+                            <label>
+                                <input type="checkbox" name="appointments[]" value="{{$appointment->id}}">
+                                {{$appointment->time}} | {{$appointment->ordinance->name}}
+                            </label>
+                        </li>
+                        
+                    @endforeach
+                </ul>
+
                 <flux:button class="mt-4" variant="primary" type="submit">Enviar</flux:button>
         </form>
     </div>

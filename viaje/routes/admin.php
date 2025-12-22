@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\OrdinanceController;
 use App\Http\Controllers\Admin\PassengerController;
 use App\Http\Controllers\Admin\StakeController;
 use App\Http\Controllers\Admin\WardController;
@@ -11,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 Route::resource('stakes', StakeController::class); 
 Route::resource('wards', WardController::class);
 Route::resource('passengers', PassengerController::class);
+Route::resource('ordinances', OrdinanceController::class);
+Route::resource('appointments', AppointmentController::class);
+

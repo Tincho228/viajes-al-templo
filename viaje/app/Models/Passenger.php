@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ward;
+use App\Models\Appointment;
 
 class Passenger extends Model
 {
@@ -28,5 +29,9 @@ class Passenger extends Model
     {
         // One passanger belongs to one ward
         return $this->belongsTo(Ward::class);
+    }
+    public function appointments() {
+        // Many passengers belong to many appointments
+        return $this->belongsToMany(Appointment::class);
     }
 }

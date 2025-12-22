@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Appointment;
+use App\Models\Ordinance;
 use App\Models\Passenger;
 use App\Models\User;
 use App\Models\Stake;
@@ -26,6 +28,7 @@ class DatabaseSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+        // Seeding Stakes with some Mendoza Stakes
         Stake::factory()->createMany([
             [
                 'name' => 'San Rafael',
@@ -45,6 +48,7 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        // Seeding Wards table with San Rafael Stake units
         Ward::factory()->createMany([
             [
                 'name' => 'San Rafael 1',
@@ -110,5 +114,29 @@ class DatabaseSeeder extends Seeder
 
         // Seeding Passengers table with 60 records
         Passenger::factory(60)->create();
+
+        // Seeding Ordinances table with important temple ordinances
+        Ordinance::factory()->createMany([
+            // For representatives
+            [
+                'name' => 'Bautismo',
+            ],
+            [
+                'name' => 'Iniciatoria',
+            ],
+            [
+                'name' => 'Investidura',
+            ],
+            [
+                'name' => 'Sellamiento',
+            ],
+            // Personal ordinances
+             [
+                'name' => 'Ordenanzas personales',
+            ],
+        ]);
+
+         // Seeding Appointments table with 10 records
+        Appointment::factory(10)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Passenger;
 use App\Models\Ward;
 use Illuminate\Http\Request;
@@ -78,10 +79,12 @@ class PassengerController extends Controller
      */
     public function edit(Passenger $passenger)
     {
+        // Fetch all Appointments available.
+        $appointments = Appointment::all();
         // Fetch all wards 
         $wards = Ward::all();
         // Redirect to edit page
-        return view('admin.passengers.edit', compact('passenger', 'wards'));
+        return view('admin.passengers.edit', compact('passenger', 'wards','appointments'));
     }
 
     /**
@@ -102,10 +105,16 @@ class PassengerController extends Controller
             'birthdate' => 'required|date' ,
             'is_authorized'=> 'nullable|boolean',
             'ward_id' => 'required|exists:wards,id',
+            'appointments' => 'nullable|array',
+            'appointments.*' => 'exists:appointments,id'
         ]);
         
         // Update Passenger
         $passenger->update($data);
+
+        // Sincronizing 
+
+        $passenger->appointments()->sync($data['appointments'] ?? []);
 
         // Confirmation message
         session()->flash('swal', [
@@ -117,7 +126,7 @@ class PassengerController extends Controller
         // Redirect to index page
         return redirect()->route('admin.passengers.edit',$passenger);
     }
-
+ 
     /**
      * Remove the specified resource from storage.
      */
