@@ -103,7 +103,11 @@
 
                         <li>
                             <label>
-                                <input type="checkbox" name="appointments[]" value="{{$appointment->id}}">
+                                <input type="checkbox" 
+                                       name="appointments[]" 
+                                       value="{{$appointment->id}}"
+                                       @checked(in_array($appointment->id, old('appointments', $passenger->appointments->pluck('id')->toArray())))
+                                       >
                                 {{$appointment->time}} | {{$appointment->ordinance->name}}
                             </label>
                         </li>

@@ -31,4 +31,9 @@ class Ward extends Model
         // One ward has many passengers
         return $this->hasMany(Passenger::class);
     }
+    public function trips()
+    {
+        // One ward has many trips
+        return $this->hasMany(Trip::class);
+    }
 }

@@ -47,6 +47,22 @@
                  // Check if we are located in any stakes route
                 'current' => request()->routeIs('admin.appointments.*')
             ],
+             [
+                'name' => 'Usuarios',
+                'icon' => 'users',
+                'url' => route('admin.users.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.users.*')
+            ],
+            [
+                'name' => 'Viajes',
+                'icon' => 'truck',
+                'url' => route('admin.trips.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.trips.*')
+            ],
         ]
     ];
 

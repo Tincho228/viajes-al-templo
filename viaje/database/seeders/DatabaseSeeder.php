@@ -7,6 +7,7 @@ use App\Models\Ordinance;
 use App\Models\Passenger;
 use App\Models\User;
 use App\Models\Stake;
+use App\Models\Trip;
 use App\Models\Ward;
 use Illuminate\Database\Seeder;
 use Mockery\Generator\StringManipulation\Pass\Pass;
@@ -20,14 +21,22 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::firstOrCreate(
-            ['email' => 'test@example.com'],
-            [
-                'name' => 'Test User',
-                'password' => 'password',
-                'email_verified_at' => now(),
-            ]
-        );
+       $usuarios = [
+            ['email' => 'admin@ejemplo.com', 'name' => 'Administrador'],
+            ['email' => 'editor@ejemplo.com', 'name' => 'Editor'],
+        ];
+
+        foreach ($usuarios as $userData) {
+            User::firstOrCreate(
+                ['email' => $userData['email']], // Condición de búsqueda
+                [
+                    'name' => $userData['name'],
+                    'password' => bcrypt('password'), // Siempre encripta la contraseña
+                    'email_verified_at' => now(),      // Salta la verificación de email
+                ]
+            );
+        }
+        
         // Seeding Stakes with some Mendoza Stakes
         Stake::factory()->createMany([
             [
@@ -51,7 +60,7 @@ class DatabaseSeeder extends Seeder
         // Seeding Wards table with San Rafael Stake units
         Ward::factory()->createMany([
             [
-                'name' => 'San Rafael 1',
+                'name' => 'San Rafael 1', 
                 'address' => 'Maza 178, San Rafael, Mendoza',
                 'stake_id' => 1,
             ],
@@ -138,5 +147,8 @@ class DatabaseSeeder extends Seeder
 
          // Seeding Appointments table with 10 records
         Appointment::factory(10)->create();
+
+        // Seeding Trips table with 10 records
+        Trip::factory(10)->create();
     }
 }

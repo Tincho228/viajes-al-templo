@@ -113,7 +113,6 @@ class PassengerController extends Controller
         $passenger->update($data);
 
         // Sincronizing 
-
         $passenger->appointments()->sync($data['appointments'] ?? []);
 
         // Confirmation message
