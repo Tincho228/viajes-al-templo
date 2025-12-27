@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('description');
             $table->integer('capacity');
-            $table->decimal('cost');
+            $table->decimal('cost',15 ,2);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('ward_id')->constrained()->onDelete('cascade');
             $table->timestamps();

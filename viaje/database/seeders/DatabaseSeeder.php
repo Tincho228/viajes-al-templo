@@ -119,6 +119,11 @@ class DatabaseSeeder extends Seeder
                 'address' => 'Maza 178, Malargue, Mendoza',
                 'stake_id' => 1,
             ],
+            [
+                'name' => 'Estaca San Rafael',
+                'address' => 'Maza 178, Malargue, Mendoza',
+                'stake_id' => 1,
+            ],
         ]);
 
         // Seeding Passengers table with 60 records

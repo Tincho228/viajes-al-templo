@@ -26,9 +26,6 @@
                         Lugar de llegada
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Descripcion
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Capacidad
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -39,6 +36,12 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Barrio
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        Estaca
+                    </th>
+                     <th scope="col" class="px-6 py-3">
+                        Editar
                     </th>
                 </tr>
             </thead>
@@ -56,9 +59,6 @@
                             {{ $trip->location }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $trip->description }}
-                        </td>
-                        <td class="px-6 py-4">
                             {{ $trip->capacity }}
                         </td>
                         <td class="px-6 py-4">
@@ -69,6 +69,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $trip->ward->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $trip->ward->stake->name }}
                         </td>
                         
                         <td class="px-6 py-4">

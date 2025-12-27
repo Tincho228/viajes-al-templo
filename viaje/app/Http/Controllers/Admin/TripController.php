@@ -36,7 +36,7 @@ class TripController extends Controller
     {
         //Validation
         $data = $request->validate([
-            'departure' => 'required|date_format:H:i',
+            'departure' => 'required|date',
             'location' => 'required|string|max:255',
             'description' => 'nullable|string',
             'capacity' => 'required|integer|min:1',
@@ -44,7 +44,18 @@ class TripController extends Controller
             'user_id' => 'required|exists:users,id',
             'ward_id' => 'required|exists:wards,id',
         ]);
-        return redirect()->route('admin.trips.index');
+
+        // Creating trip
+        $trip = Trip::create($data);
+
+        // Confirmation message
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El viaje fue creado correctamente.',
+        ]);
+
+        return redirect()->route('admin.trips.edit', $trip);
     }
 
     /**
@@ -60,7 +71,9 @@ class TripController extends Controller
      */
     public function edit(Trip $trip)
     {
-        //
+        $wards = Ward::all();
+        // Redirect to Trip.edit
+        return view('admin.trips.edit', compact('trip','wards'));
     }
 
     /**
@@ -68,7 +81,29 @@ class TripController extends Controller
      */
     public function update(Request $request, Trip $trip)
     {
-        //
+        // Validation
+        $data = $request->validate([
+            'departure' => 'required|date',
+            'location' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'capacity' => 'required|integer|min:1',
+            'cost' => 'required|numeric|min:0',
+            'user_id' => 'required|exists:users,id',
+            'ward_id' => 'required|exists:wards,id',
+        ]);
+        
+        // Updating
+        $trip->update($data);
+
+        // Confirmation message
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El viaje fue actualizado correctamente.',
+        ]);
+
+        // Redirect
+        return redirect()->route('admin.trips.edit', $trip);
     }
 
     /**

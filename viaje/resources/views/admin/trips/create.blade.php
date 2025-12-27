@@ -15,11 +15,14 @@
         <form action="{{ route('admin.trips.store') }}" method="post" class="space-y-4">
             @csrf
                 
-                <flux:input type="time"
-                            name="departure"
-                            value="{{old('departure')}}"
-                            label="Fecha de salida"  
-                            placeholder="Ingrese la fecha de salida"/>
+                <flux:input 
+                    type="datetime-local"
+                    name="departure"
+                    value="{{ old('departure') }}"
+                    label="Fecha de salida"  
+                    placeholder="Ingrese la fecha de salida"
+                    step="1" 
+                />
 
                 <flux:input name="location"
                             value="{{old('location')}}"
