@@ -19,24 +19,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-       $usuarios = [
-            ['email' => 'admin@ejemplo.com', 'name' => 'Administrador'],
-            ['email' => 'editor@ejemplo.com', 'name' => 'Editor'],
-        ];
-
-        foreach ($usuarios as $userData) {
-            User::firstOrCreate(
-                ['email' => $userData['email']], // Condición de búsqueda
-                [
-                    'name' => $userData['name'],
-                    'password' => bcrypt('password'), // Siempre encripta la contraseña
-                    'email_verified_at' => now(),      // Salta la verificación de email
-                ]
-            );
-        }
-        
         // Seeding Stakes with some Mendoza Stakes
         Stake::factory()->createMany([
             [
@@ -56,6 +38,24 @@ class DatabaseSeeder extends Seeder
                 'address' => 'Maza 3127, General Gutierrez, Mendoza',
             ],
         ]);
+
+        $usuarios = [
+            ['email' => 'admin@ejemplo.com', 'name' => 'Administrador'],
+            ['email' => 'editor@ejemplo.com', 'name' => 'Editor'],
+        ];
+
+        foreach ($usuarios as $userData) {
+            User::firstOrCreate(
+                ['email' => $userData['email']], // Condición de búsqueda
+                [
+                    'name' => $userData['name'],
+                    'password' => bcrypt('password'), // Siempre encripta la contraseña
+                    'email_verified_at' => now(),      // Salta la verificación de email
+                ]
+            );
+        }
+        
+        User::factory(10)->create();
 
         // Seeding Wards table with San Rafael Stake units
         Ward::factory()->createMany([

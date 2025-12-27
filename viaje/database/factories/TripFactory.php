@@ -18,14 +18,16 @@ class TripFactory extends Factory
      */
     public function definition(): array
     {
+            $user = User::whereNotNull('stake_id')->inRandomOrder()->first() ?? User::factory()->create();
         return [
             'departure' => $this->faker->dateTime(),
             'location' => $this->faker->city(),
             'description' => $this->faker->text(),
             'capacity' => $this->faker->numberBetween(1, 100),
             'cost' => $this->faker->randomFloat(2, 10, 1000),
-            'user_id' => User::all()->random()->id,
-            'ward_id' => Ward::all()->random()->id,
+            'user_id' => $user->id,
+            'ward_id' => Ward::where('stake_id', $user->stake_id)->inRandomOrder()->first()?->id 
+                     ?? Ward::factory()->create(['stake_id' => $user->stake_id])->id,
         ];
     }
 }
