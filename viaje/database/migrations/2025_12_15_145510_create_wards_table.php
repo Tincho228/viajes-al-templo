@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('wards', function (Blueprint $table) {
             $table->id();
             $table->string('name',45);
-            $table->string('address',45);
+            $table->string('address',250);
             $table->string('image_path')->nullable();
             $table->foreignId('stake_id')
                 ->constrained()

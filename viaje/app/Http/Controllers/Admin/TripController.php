@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
 {
@@ -24,7 +25,9 @@ class TripController extends Controller
      */
     public function create()
     {
-        $wards = Ward::all();
+        $user = Auth::user();
+        $wards = Ward::where('stake_id', $user->stake_id)
+                    ->get();
         // Redirect to Create view
         return view('admin.trips.create', compact('wards'));
     }

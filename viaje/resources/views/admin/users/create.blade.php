@@ -31,6 +31,18 @@
                             description="Estos datos pueden editarse" 
                             placeholder="Ingrese el password del usuario" />
 
+                <flux:select label="Estaca"
+                             name="stake_id"
+                             placeholder="Elegir Estaca...">
+                    @foreach ($stakes as $stake)
+                        
+                        <flux:select.option value="{{$stake->id}}" :selected="$stake->id == old('stake_id')">
+                            {{$stake->name}}
+                        </flux:select.option>
+                    
+                    @endforeach
+                </flux:select>
+
                 <flux:button class="mt-4" variant="primary" type="submit">Enviar</flux:button>
         </form>
 

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'stake_id',
     ];
 
     /**
@@ -66,5 +67,11 @@ class User extends Authenticatable
     {
         // One User has many trips
         return $this->hasMany(Trip::class);
+    }
+
+    public function stake()
+    {
+        // One User belongs to one stake
+        return $this->belongsTo(Stake::class);
     }
 }

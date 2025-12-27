@@ -29,10 +29,10 @@
                         Email
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Barrio
+                        Estaca
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Estaca
+                        Editar
                     </th>
                 </tr>
             </thead>
@@ -51,6 +51,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $user->email }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $user->stake->name ?? 'No asignado' }}     
                         </td>
                         
                         <td class="px-6 py-4">

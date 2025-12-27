@@ -56,11 +56,9 @@
                              name="ward_id"
                              placeholder="Elegir Unidad...">
                     @foreach ($wards as $ward)
-
                         <flux:select.option value="{{$ward->id}}" :selected="$ward->id == old('ward_id')">
                             {{$ward->name}}
                         </flux:select.option>
-                    
                     @endforeach
                 </flux:select>
 

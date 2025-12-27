@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Stake;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,7 @@ class WardFactory extends Factory
             'name' => $this->faker->name(),
             'address' => $this->faker->address(),
             // image_path is nullable
-            'stake_id'=> 1
+            'stake_id'=> Stake::all()->random()->id,
         ];
     }
 }

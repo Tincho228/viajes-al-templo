@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stake;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $stakes = Stake::all();
+        return view('admin.users.create', compact('stakes'));
     }
 
     /**
@@ -38,6 +40,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'stake_id' => 'nullable|string'
         ]);
         // Create the user
         $user = User::create($data);
@@ -66,8 +69,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        // Fetch all stakes
+        $stakes = Stake::all();
         //Redirect to the edit view
-        return view('admin.users.edit', compact('user'));
+        return view('admin.users.edit', compact('user', 'stakes'));
     }
 
     /**
@@ -80,6 +85,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' .$user->id,
             'password' => 'required|string|min:8',
+            'stake_id' => 'nullable|string',
         ]);
         // Create the user
         $user->update($data);

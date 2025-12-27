@@ -22,4 +22,10 @@ class Stake extends Model
         // One stake has many wards.
         return $this->hasMany(Ward::class);
     }
+
+    public function users()
+    {
+        // One stake has many users
+        return $this->hasMany(User::class);
+    }
 }

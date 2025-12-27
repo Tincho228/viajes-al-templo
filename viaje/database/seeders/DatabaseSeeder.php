@@ -125,6 +125,7 @@ class DatabaseSeeder extends Seeder
                 'stake_id' => 1,
             ],
         ]);
+        Ward::factory(20)->create();
 
         // Seeding Passengers table with 60 records
         Passenger::factory(60)->create();
