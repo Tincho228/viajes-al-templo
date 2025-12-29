@@ -15,8 +15,11 @@ class TripController extends Controller
      */
     public function index()
     {
+        // Fetch authenticated user
+        $user = Auth::user();
         //Fetch all trips
-        $trips = Trip::all();
+        $trips = Trip::where('user_id', $user->id)->paginate(10);
+    
         return view('admin.trips.index', compact('trips'));
     }
 

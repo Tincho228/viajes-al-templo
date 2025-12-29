@@ -51,6 +51,22 @@
                     @endforeach
                 </flux:select>
 
+                <flux:input type="text"
+                            name="user_id"
+                            :value="old('user_id',$user->id)" 
+                            hidden />
+
+                <flux:input type="text"
+                            :value="$user->name"
+                            label="Organizador" 
+                            readonly />
+                
+
+                <flux:input type="text"
+                            :value="$user->stake->name"
+                            label="Estaca" 
+                            readonly />
+
                 <flux:button class="mt-4" variant="primary" type="submit">Enviar</flux:button>
         </form>
 

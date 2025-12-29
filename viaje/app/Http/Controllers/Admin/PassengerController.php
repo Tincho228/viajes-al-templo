@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Passenger;
 use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PassengerController extends Controller
 {
@@ -15,8 +16,10 @@ class PassengerController extends Controller
      */
     public function index()
     {
+        // Fetch authenticated user
+        $user = Auth::user();
         // Fetch all Passengers list
-        $passengers = Passenger::all();
+        $passengers = Passenger::where('user_id', $user->id)->paginate(10);
         return view('admin.passengers.index', compact('passengers'));
     }
 
@@ -25,11 +28,12 @@ class PassengerController extends Controller
      */
     public function create()
     {
+        // Fetch authenticated user
+        $user = Auth::user();
         //Fetch all wards from stake
-        $wards = Ward::all(); // Enhacement: ->where(user->auth->stake_id) 
-        // Enhacement 2: ->where(trip->ward->stake->id)
+        $wards = Ward::where('stake_id', $user->stake_id)->get();  
         //Redirect to create page
-        return view('admin.passengers.create', compact('wards'));
+        return view('admin.passengers.create', compact('wards','user'));
     }
 
     /**
@@ -44,18 +48,14 @@ class PassengerController extends Controller
             'is_member' => 'required|boolean',
             'gender' => 'required|string|max:255',
             'birthdate' => 'required|date',
-            'ward_id' => 'required|exists:wards,id'
+            'ward_id' => 'required|exists:wards,id',
+            'user_id' => 'required|exists:users,id'
         ]);
-
-        // Chech if there is place to store more passengers in the trip
-        // Enhacement:
 
         // Create a new passenger
         $passenger = Passenger::create($data);
 
         // Confirmation message
-        // Enhacement: Confirm where has been put the passenger.
-        // Two possible lists: Confirmed or waitlist
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien hecho!',
@@ -79,12 +79,16 @@ class PassengerController extends Controller
      */
     public function edit(Passenger $passenger)
     {
+        // Fetch authenticated user
+        $user = Auth::user();
+        //Fetch all wards from stake
+        $wards = Ward::where('stake_id', $user->stake_id)->get();  
+        //Redirect to create page
         // Fetch all Appointments available.
         $appointments = Appointment::all();
-        // Fetch all wards 
-        $wards = Ward::all();
+       
         // Redirect to edit page
-        return view('admin.passengers.edit', compact('passenger', 'wards','appointments'));
+        return view('admin.passengers.edit', compact('passenger', 'wards','appointments', 'user'));
     }
 
     /**
@@ -105,6 +109,7 @@ class PassengerController extends Controller
             'birthdate' => 'required|date' ,
             'is_authorized'=> 'nullable|boolean',
             'ward_id' => 'required|exists:wards,id',
+            'user_id' => 'required|exists:users,id',
             'appointments' => 'nullable|array',
             'appointments.*' => 'exists:appointments,id'
         ]);
@@ -131,6 +136,18 @@ class PassengerController extends Controller
      */
     public function destroy(Passenger $passenger)
     {
-        //
+        //Destroy the passenger
+        $passenger->delete();
+        
+        //Confirmation message
+          session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El pasajero fue eliminado correctamente.',
+        ]);
+
+        // Redirect to the users index with a success message
+        return redirect()->route('admin.passengers.index');
+        
     }
 }

@@ -96,6 +96,22 @@
                     @endforeach
                 </flux:select>
 
+                <flux:input type="text"
+                            name="user_id"
+                            :value="old('user_id',$user->id)" 
+                            hidden />
+
+                <flux:input type="text"
+                            :value="$user->name"
+                            label="Organizador" 
+                            readonly />
+                
+
+                <flux:input type="text"
+                            :value="$user->stake->name"
+                            label="Estaca" 
+                            readonly />
+
                 <h1>Sesiones disponibles</h1>
 
                 <ul>

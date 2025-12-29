@@ -24,14 +24,20 @@ class Passenger extends Model
         'birthdate',
         'is_authorized',
         'ward_id',
+        'user_id',
     ];
-    public function ward()
+    public function user()
     {
         // One passanger belongs to one ward
-        return $this->belongsTo(Ward::class);
+        return $this->belongsTo(User::class);
     }
     public function appointments() {
         // Many passengers belong to many appointments
         return $this->belongsToMany(Appointment::class);
+    }
+    public function ward()
+    {
+        // One passanger belongs to one ward
+        return $this->belongsTo(Ward::class);
     }
 }

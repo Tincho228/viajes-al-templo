@@ -20,7 +20,6 @@ class SeatFactory extends Factory
     {
         return [
             'number' => null, // // This will be filled in the seeder
-            'passenger_id' => null, // This will be filled in the seeder
             'trip_id' => null, // This will be filled in the seeder
             'user_id' => null, // This will be filled in the seeder
         ];

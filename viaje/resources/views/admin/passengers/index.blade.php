@@ -38,7 +38,10 @@
                         Edad
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Unidad
+                        Organizador
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Barrio
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Editar
@@ -69,6 +72,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{floor(Carbon\Carbon::parse($passenger->birthdate)->diffInYears(now())) }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $passenger->user->name }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $passenger->ward->name }}

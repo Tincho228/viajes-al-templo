@@ -63,15 +63,21 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    public function stake()
+    {
+        // One User belongs to one stake
+        return $this->belongsTo(Stake::class);
+    }
+
     public function trips()
     {
         // One User has many trips
         return $this->hasMany(Trip::class);
     }
 
-    public function stake()
+    public function passengers()
     {
-        // One User belongs to one stake
-        return $this->belongsTo(Stake::class);
+        // One User has many passengers
+        return $this->hasMany(Passenger::class);
     }
 }

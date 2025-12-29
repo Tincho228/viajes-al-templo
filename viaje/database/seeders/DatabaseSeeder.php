@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seeding Stakes with some Mendoza Stakes
+        
+        // ***** Seeding Stakes with some Mendoza Stakes ***** //
+
         Stake::factory()->createMany([
             [
                 'name' => 'San Rafael',
@@ -40,6 +42,8 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        // ***** Seeding two email-verified Users ***** //
+
         $usuarios = [
             ['email' => 'admin@ejemplo.com', 'name' => 'Administrador'],
             ['email' => 'editor@ejemplo.com', 'name' => 'Editor'],
@@ -56,10 +60,12 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        // Creating 10 random users //
         
         User::factory(10)->create();
-
-        // Seeding Wards table with San Rafael Stake units
+        
+        // ***** Seeding Wards table with San Rafael Stake units ***** //
         Ward::factory()->createMany([
             [
                 'name' => 'San Rafael 1', 
@@ -127,6 +133,7 @@ class DatabaseSeeder extends Seeder
                 'stake_id' => 1,
             ],
         ]);
+
         Ward::factory(20)->create();
 
         // Seeding Passengers table with 60 records
@@ -161,19 +168,25 @@ class DatabaseSeeder extends Seeder
 
         // Seeding Seats table with 60 records
         // 1. Fetchin 5 trips
-        $trips = Trip::inRandomOrder()->take(5)->get();
+        $trips = Trip::inRandomOrder()->take(10)->get();
 
         foreach ($trips as $trip) {
-            $passengers = Passenger::inRandomOrder()->take(60)->get();
-
-            foreach ($passengers as $index => $passenger) {
+            for ($i = 1; $i <= $trip->capacity; $i++) {
                 Seat::create([
-                    'number'       => $index + 1, // Reset 
-                    'passenger_id' => $passenger->id,
-                    'trip_id'      => $trip->id,
-                    'user_id'      => $trip->user_id,
+                    'number'  => $i,
+                    'trip_id' => $trip->id,
+                    'user_id' => $trip->user_id,
                 ]);
             }
+            //$passengers = Passenger::inRandomOrder()->take(15)->get();
+
+            // foreach ($passengers as $index => $passenger) {
+            //     Seat::create([
+            //         'number'       => $index + 1, // Reset 
+            //         'passenger_id' => $passenger->id,
+            //         'trip_id'      => $trip->id,
+            //     ]);
+            // }
         }
     }
 }

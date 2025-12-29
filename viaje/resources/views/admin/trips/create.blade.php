@@ -48,7 +48,7 @@
                             hidden
                              />
                 <flux:input type="text"
-                            :value="old('user_id', auth()->user()->name)"
+                            :value="old(auth()->user()->name, auth()->user()->name)"
                             readonly
                             label="Organizador" 
                              />
