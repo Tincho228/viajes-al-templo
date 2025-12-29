@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\Ward;
 use Illuminate\Http\Request;
@@ -54,11 +55,29 @@ class TripController extends Controller
         // Creating trip
         $trip = Trip::create($data);
 
+        // Creating seats automatically
+        // Loop to prepare data
+
+        $seats = [];
+        for ($i = 1; $i <= $trip->capacity; $i++) {
+            $seats[] = [
+                'number'  => $i,
+                'status'  => 'libre',
+                'trip_id' => $trip->id,
+                'user_id' => $trip->user_id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        // Massive insertion
+        Seat::insert($seats);
+
         // Confirmation message
         session()->flash('swal', [
             'icon' => 'success',
             'title' => '¡Bien hecho!',
-            'text' => 'El viaje fue creado correctamente.',
+            'text' => "Se ha creado el viaje y generado {$trip->capacity} asientos.",
         ]);
 
         return redirect()->route('admin.trips.edit', $trip);
@@ -117,6 +136,17 @@ class TripController extends Controller
      */
     public function destroy(Trip $trip)
     {
-        //
+        // Destroy trip
+        $trip->delete();
+
+        //Confirmation message
+          session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'El viaje fue eliminado correctamente.',
+        ]);
+
+        // Redirect to the users index with a success message
+        return redirect()->route('admin.trips.index');
     }
 }
