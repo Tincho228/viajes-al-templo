@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\OrdinanceController;
 use App\Http\Controllers\Admin\PassengerController;
+use App\Http\Controllers\Admin\SeatController;
 use App\Http\Controllers\Admin\StakeController;
 use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\Admin\UserController;
@@ -19,4 +20,5 @@ Route::resource('ordinances', OrdinanceController::class);
 Route::resource('appointments', AppointmentController::class);
 Route::resource('users', UserController::class);
 Route::resource('trips', TripController::class);
+Route::resource('seats', SeatController::class);
 

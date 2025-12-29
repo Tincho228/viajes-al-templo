@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Appointment;
 use App\Models\Ordinance;
 use App\Models\Passenger;
+use App\Models\Seat;
 use App\Models\User;
 use App\Models\Stake;
 use App\Models\Trip;
@@ -50,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 [
                     'name' => $userData['name'],
                     'password' => bcrypt('password'), // Siempre encripta la contraseña
+                    'stake_id' => 2,
                     'email_verified_at' => now(),      // Salta la verificación de email
                 ]
             );
@@ -156,5 +158,22 @@ class DatabaseSeeder extends Seeder
 
         // Seeding Trips table with 10 records
         Trip::factory(10)->create();
+
+        // Seeding Seats table with 60 records
+        // 1. Fetchin 5 trips
+        $trips = Trip::inRandomOrder()->take(5)->get();
+
+        foreach ($trips as $trip) {
+            $passengers = Passenger::inRandomOrder()->take(60)->get();
+
+            foreach ($passengers as $index => $passenger) {
+                Seat::create([
+                    'number'       => $index + 1, // Reset 
+                    'passenger_id' => $passenger->id,
+                    'trip_id'      => $trip->id,
+                    'user_id'      => $trip->user_id,
+                ]);
+            }
+        }
     }
 }

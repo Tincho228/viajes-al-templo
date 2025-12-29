@@ -26,8 +26,15 @@ class Trip extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function ward(){
+    public function ward()
+    {
         // One trip belongs to one ward
         return $this->belongsTo(Ward::class);
+    }
+
+    public function seats()
+    {
+        // One trip can have many seats
+        return $this->hasMany(Seat::class);
     }
 }

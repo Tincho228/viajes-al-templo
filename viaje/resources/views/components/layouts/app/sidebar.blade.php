@@ -63,6 +63,14 @@
                  // Check if we are located in any stakes route
                 'current' => request()->routeIs('admin.trips.*')
             ],
+            [
+                'name' => 'Asientos',
+                'icon' => 'computer-desktop',
+                'url' => route('admin.seats.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.seats.*')
+            ],
         ]
     ];
 
