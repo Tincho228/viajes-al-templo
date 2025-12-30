@@ -40,4 +40,10 @@ class Passenger extends Model
         // One passanger belongs to one ward
         return $this->belongsTo(Ward::class);
     }
+
+    public function payments()
+    {
+        // One passenger has many payments
+        return $this->hasMany(Payment::class);
+    }
 }

@@ -18,7 +18,6 @@ class PassengerFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::whereNotNull('stake_id')->inRandomOrder()->first() ?? User::factory()->create();
         return [
             // Create fake data for Passenger model
             'firstname' => $this->faker->firstName(),
@@ -31,9 +30,8 @@ class PassengerFactory extends Factory
             'gender' => $this->faker->randomElement(['Hombre', 'Mujer']),
             'birthdate' => $this->faker->date(),
             'is_authorized' => $this->faker->boolean(80),
-            'ward_id' => Ward::where('stake_id', $user->stake_id)->inRandomOrder()->first()?->id 
-                     ?? Ward::factory()->create(['stake_id' => $user->stake_id])->id,
-            'user_id' => $user->id,
+            'ward_id' => null,
+            'user_id' => null,
         ];
     }
 }

@@ -37,4 +37,10 @@ class Trip extends Model
         // One trip can have many seats
         return $this->hasMany(Seat::class);
     }
+
+    public function payments()
+    {
+        // One trip has many payments
+        return $this->hasMany(Payment::class);
+    }
 }

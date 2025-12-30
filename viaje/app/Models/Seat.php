@@ -24,4 +24,10 @@ class Seat extends Model
         // One seat belongs to one trip
         return $this->belongsTo(Trip::class);
     }
+
+    public function payments()
+    {
+        // One seat has many payments
+        return $this->hasMany(Payment::class);
+    }
 }

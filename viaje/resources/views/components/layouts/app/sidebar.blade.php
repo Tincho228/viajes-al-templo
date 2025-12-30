@@ -71,6 +71,14 @@
                  // Check if we are located in any stakes route
                 'current' => request()->routeIs('admin.seats.*')
             ],
+            [
+                'name' => 'Pagos',
+                'icon' => 'currency-dollar',
+                'url' => route('admin.payments.index'),
+
+                 // Check if we are located in any stakes route
+                'current' => request()->routeIs('admin.payments.*')
+            ],
         ]
     ];
 

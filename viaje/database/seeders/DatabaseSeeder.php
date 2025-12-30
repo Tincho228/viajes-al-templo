@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Appointment;
 use App\Models\Ordinance;
 use App\Models\Passenger;
+use App\Models\Payment;
 use App\Models\Seat;
 use App\Models\User;
 use App\Models\Stake;
@@ -137,7 +138,16 @@ class DatabaseSeeder extends Seeder
         Ward::factory(20)->create();
 
         // Seeding Passengers table with 60 records
-        Passenger::factory(60)->create();
+        //$user = User::whereNotNull('stake_id')->inRandomOrder()->first() ?? User::factory()->create();
+        $users = User::all();
+        foreach ($users as $user) {
+            Passenger::factory(15)->create([
+                'ward_id' => Ward::where('stake_id', $user->stake_id)->inRandomOrder()->first()?->id 
+                     ?? Ward::factory()->create(['stake_id' => $user->stake_id])->id,
+                'user_id' => $user->id,
+            ]);
+        }
+        
 
         // Seeding Ordinances table with important temple ordinances
         Ordinance::factory()->createMany([
@@ -172,21 +182,17 @@ class DatabaseSeeder extends Seeder
 
         foreach ($trips as $trip) {
             for ($i = 1; $i <= $trip->capacity; $i++) {
-                Seat::create([
+                $seat = Seat::create([
                     'number'  => $i,
                     'trip_id' => $trip->id,
                     'user_id' => $trip->user_id,
                 ]);
+                Payment::factory()->create([
+                    'seat_id' => $seat->id,
+                    'trip_id' => $trip->id,
+                    'user_id' => $trip->user->id,
+                ]);
             }
-            //$passengers = Passenger::inRandomOrder()->take(15)->get();
-
-            // foreach ($passengers as $index => $passenger) {
-            //     Seat::create([
-            //         'number'       => $index + 1, // Reset 
-            //         'passenger_id' => $passenger->id,
-            //         'trip_id'      => $trip->id,
-            //     ]);
-            // }
         }
     }
 }

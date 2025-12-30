@@ -4,11 +4,11 @@
             Panel de control
         </flux:breadcrumbs.item>
         <flux:breadcrumbs.item>
-            Pasajeros
+            Payments
         </flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
-    <a href="{{ route('admin.passengers.create') }}" class="text-white bg-blue-700 text-xs p-2">
+    <a href="{{ route('admin.payments.create') }}" class="text-white bg-blue-700 text-xs p-2">
         Nuevo
     </a>
 
@@ -20,72 +20,55 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nombre
+                        Monto
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Apellido
+                        Tipo
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Miembro?
+                        Numero de asiento
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Investido?
+                        Pasajero
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Hombre/Mujer
+                     <th scope="col" class="px-6 py-3">
+                        Viaje
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                        Edad
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Organizador
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Barrio
-                    </th>
-                    <th scope="col" class="px-6 py-3">
+                     <th scope="col" class="px-6 py-3">
                         Editar
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($passengers as $passenger)
+                @foreach ($payments as $payment)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $passenger->id }}
+                            {{ $payment->id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $passenger->firstname }}
+                            {{ $payment->amount }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $passenger->lastname }}
+                            {{ $payment->type }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $passenger->is_member }}
+                            {{ $payment->seat->number }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $passenger->is_endowed }}
+                            {{ $payment->passenger->firstname ?? 'Sin asignar '}}
+                            {{ $payment->passenger->lastname ?? ' '}}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $passenger->gender }}
+                            {{ $payment->trip->location }}
                         </td>
-                        <td class="px-6 py-4">
-                            {{floor(Carbon\Carbon::parse($passenger->birthdate)->diffInYears(now())) }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $passenger->user->name }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{ $passenger->ward->name }}
-                        </td>
-                    
+                        
                         <td class="px-6 py-4">
                             <div class="flex space-x-2">
-                                <a href="{{ route('admin.passengers.edit', $passenger) }}" class="text-white bg-blue-700 text-xs p-2">
+                                <a href="{{ route('admin.payments.edit', $payment) }}" class="text-white bg-blue-700 text-xs p-2">
                                 Editar
                                 </a>
-                                <form class="delete-form" action="{{route('admin.passengers.destroy', $passenger)}}" method="POST">
+                                <form class="delete-form" action="{{route('admin.payments.destroy', $payment)}}" method="POST">
                                     @method('DELETE')
                                     @csrf
 
@@ -101,7 +84,7 @@
             </tbody>
         </table>
         <div class="mt-4">
-            {{ $passengers->links() }}
+            {{ $payments->links() }}
         </div>
     </div>
     @push('js')
