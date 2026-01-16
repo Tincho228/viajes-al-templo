@@ -44,6 +44,16 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
 
+            // Relations to trips table
+            $table->foreignId('trip_id')
+                ->constrained()
+                ->onDelete('cascade');
+
+            // Relations to seat table
+            $table->foreignId('seat_id')
+                ->constrained()
+                ->onDelete('cascade');
+
             $table->timestamps();
             
         });

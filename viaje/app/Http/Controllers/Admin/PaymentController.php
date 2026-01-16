@@ -31,12 +31,14 @@ class PaymentController extends Controller
     {
         // Fetch user
         $user = Auth::user();
+
+        $trips = Trip::where('user_id', $user->id)->get();
         // Fetch trips
-        $trip = Trip::where('user_id', $user->id)->first()->get();
+        $trip = Trip::where('user_id', $user->id)->latest()->first();
         // Fetch seats
-        $seats = Seat::where('trip_id', $trip->id);
+        $seats = Seat::where('trip_id', $trip->id)->get();
         // Redirect to create view
-        return view('admin.payments.create', compact('user', 'trip', 'seats'));
+        return view('admin.payments.create', compact('user', 'trips', 'seats'));
     }
 
     /**

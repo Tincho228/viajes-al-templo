@@ -16,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 // We can access this route using the name 'admin.home'
 Route::resource('stakes', StakeController::class); 
 Route::resource('wards', WardController::class);
-Route::resource('passengers', PassengerController::class);
+Route::resource('passengers', PassengerController::class)->except(['create', 'store']);
+Route::resource('trips.passengers', PassengerController::class)
+    ->only(['create', 'store']);
 Route::resource('ordinances', OrdinanceController::class);
 Route::resource('appointments', AppointmentController::class);
 Route::resource('users', UserController::class);

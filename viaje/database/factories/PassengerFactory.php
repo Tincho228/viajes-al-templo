@@ -32,6 +32,8 @@ class PassengerFactory extends Factory
             'is_authorized' => $this->faker->boolean(80),
             'ward_id' => null,
             'user_id' => null,
+            'trip_id' => null,
+            'seat_id' => null,
         ];
     }
 }

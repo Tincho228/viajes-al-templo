@@ -44,7 +44,7 @@
                             {{ $seat->number }}
                         </td>
                         <td class="px-6 py-4">
-                            Libre/Ocupado
+                            {{ $seat->is_available ? 'Disponible' : $seat->passenger->firstname. ' ' .$seat->passenger->lastname}}
                         </td>
                         <td class="px-6 py-4">
                             {{ $seat->trip->ward->name }}

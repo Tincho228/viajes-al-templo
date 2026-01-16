@@ -45,7 +45,6 @@ class SeatController extends Controller
         //Validation
         $data = $request->validate([
             'number' => 'required|integer|min:1',
-            'passenger_id' => 'nullable|exists:passengers,id',
             'status' => 'nullable|string|max:255',
             'trip_id' => 'required|exists:trips,id',
             'user_id' => 'required|exists:users,id'
@@ -94,7 +93,6 @@ class SeatController extends Controller
         // Validation
         $data = $request->validate([
             'number' => 'required|integer|min:1',
-            'passenger_id' => 'nullable|exists:passengers,id',
             'status' => 'nullable|string|max:255',
             'trip_id' => 'required|exists:trips,id',
             'user_id' => 'required|exists:users,id'

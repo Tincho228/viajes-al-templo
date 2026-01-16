@@ -23,7 +23,7 @@ class TripFactory extends Factory
             'departure' => $this->faker->dateTime(),
             'location' => $this->faker->city(),
             'description' => $this->faker->text(),
-            'capacity' => $this->faker->numberBetween(1, 100),
+            'capacity' => 60,
             'cost' => $this->faker->randomFloat(2, 10, 1000),
             'user_id' => $user->id,
             'ward_id' => Ward::where('stake_id', $user->stake_id)->inRandomOrder()->first()?->id 

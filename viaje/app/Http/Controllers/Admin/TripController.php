@@ -62,7 +62,7 @@ class TripController extends Controller
         for ($i = 1; $i <= $trip->capacity; $i++) {
             $seats[] = [
                 'number'  => $i,
-                'status'  => 'libre',
+                'is_available'  => true,
                 'trip_id' => $trip->id,
                 'user_id' => $trip->user_id,
                 'created_at' => now(),
@@ -88,7 +88,8 @@ class TripController extends Controller
      */
     public function show(Trip $trip)
     {
-        //
+        // Show trip details
+        return view('admin.trips.show', compact('trip'));
     }
 
     /**
@@ -96,7 +97,9 @@ class TripController extends Controller
      */
     public function edit(Trip $trip)
     {
-        $wards = Ward::all();
+        $user = Auth::user();
+        $wards = Ward::where('stake_id', $user->stake_id)
+                    ->get();
         // Redirect to Trip.edit
         return view('admin.trips.edit', compact('trip','wards'));
     }

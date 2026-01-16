@@ -51,6 +51,24 @@
                     @endforeach
                 </flux:select>
 
+                {{-- Available Seats --}}
+                {{ $seats? 'Hay asientos' : 'No seats available' }}
+                <ul>
+                    @foreach ($seats as $seat)
+
+                        <li>
+                            <label>
+                                <input type="radio" 
+                                       name="seat_id" 
+                                       value="{{$seat->id}}"
+                                       >
+                                {{$seat->number}}                            
+                            </label>
+                        </li>
+                        
+                    @endforeach
+                </ul>
+
                 <flux:input type="text"
                             name="user_id"
                             :value="old('user_id',$user->id)" 

@@ -137,15 +137,51 @@ class DatabaseSeeder extends Seeder
 
         Ward::factory(20)->create();
 
-        // Seeding Passengers table with 60 records
-        //$user = User::whereNotNull('stake_id')->inRandomOrder()->first() ?? User::factory()->create();
-        $users = User::all();
-        foreach ($users as $user) {
-            Passenger::factory(15)->create([
-                'ward_id' => Ward::where('stake_id', $user->stake_id)->inRandomOrder()->first()?->id 
-                     ?? Ward::factory()->create(['stake_id' => $user->stake_id])->id,
-                'user_id' => $user->id,
-            ]);
+        // Seeding Trips table with 10 records
+        Trip::factory(10)->create();
+
+        // Seeding Seats table with 60 records
+        // 1. Fetchin 5 trips
+        $trips = Trip::inRandomOrder()->take(10)->get();
+
+        // 1️⃣ Create seats equal to trip capacity
+        foreach ($trips as $trip) {
+            for ($i = 1; $i <= $trip->capacity; $i++) {
+                $seat = Seat::create([
+                    'number'  => $i,
+                    'trip_id' => $trip->id,
+                    'user_id' => $trip->user_id,
+                ]);   
+            }
+            $user = $trip->user;
+            // 2️⃣ Create 10 passengers per trip
+                for ($i = 0; $i < 10; $i++) {
+
+                    // 3️⃣ Get a random available seat
+                    $seat = Seat::where('trip_id', $trip->id)
+                        ->where('is_available', true)
+                        ->inRandomOrder()
+                        ->first();
+
+                    // Stop if no seats left
+                    if (! $seat) {
+                        break;
+                    }
+
+                    $passenger = Passenger::factory()->create([
+                        'ward_id' => Ward::where('stake_id', $user->stake_id)
+                            ->inRandomOrder()
+                            ->first()?->id
+                            ?? Ward::factory()->create(['stake_id' => $user->stake_id])->id,
+
+                        'user_id' => $user->id,
+                        'trip_id' => $trip->id,
+                        'seat_id' => $seat->id,
+                    ]);
+
+                    // 4️⃣ Mark seat as unavailable
+                    $seat->update(['is_available' => false]);
+                }
         }
         
 
@@ -170,29 +206,10 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-         // Seeding Appointments table with 10 records
+        // Seeding Appointments table with 10 records
         Appointment::factory(10)->create();
 
-        // Seeding Trips table with 10 records
-        Trip::factory(10)->create();
+        
 
-        // Seeding Seats table with 60 records
-        // 1. Fetchin 5 trips
-        $trips = Trip::inRandomOrder()->take(10)->get();
-
-        foreach ($trips as $trip) {
-            for ($i = 1; $i <= $trip->capacity; $i++) {
-                $seat = Seat::create([
-                    'number'  => $i,
-                    'trip_id' => $trip->id,
-                    'user_id' => $trip->user_id,
-                ]);
-                Payment::factory()->create([
-                    'seat_id' => $seat->id,
-                    'trip_id' => $trip->id,
-                    'user_id' => $trip->user->id,
-                ]);
-            }
-        }
-    }
+    }   
 }

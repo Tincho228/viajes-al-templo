@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Passenger;
+use App\Models\Seat;
+use App\Models\Trip;
 use App\Models\Ward;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,21 +28,26 @@ class PassengerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Trip $trip)
     {
+        return $trip;
         // Fetch authenticated user
         $user = Auth::user();
-        //Fetch all wards from stake
+        // Fetch all wards from stake
         $wards = Ward::where('stake_id', $user->stake_id)->get();  
+        // Fetch all seats where available
+        $seats = Seat::where('trip_id', 2)->where('is_available', true)->get();
         //Redirect to create page
-        return view('admin.passengers.create', compact('wards','user'));
+
+        return view('admin.passengers.create', compact('wards','user','seats'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Trip $trip)
     {
+        return $request->all();
         //Validation
         $data = $request->validate([
             'firstname' => 'required|string|max:255',
@@ -49,7 +56,9 @@ class PassengerController extends Controller
             'gender' => 'required|string|max:255',
             'birthdate' => 'required|date',
             'ward_id' => 'required|exists:wards,id',
-            'user_id' => 'required|exists:users,id'
+            'user_id' => 'required|exists:users,id',
+            'trip_id' => 'required|exists:trips,id',
+            'seat_id' => 'required|exists:seats,id',
         ]);
 
         // Create a new passenger
@@ -110,6 +119,7 @@ class PassengerController extends Controller
             'is_authorized'=> 'nullable|boolean',
             'ward_id' => 'required|exists:wards,id',
             'user_id' => 'required|exists:users,id',
+            'seat_id' => 'required|exists:seats,id',
             'appointments' => 'nullable|array',
             'appointments.*' => 'exists:appointments,id'
         ]);

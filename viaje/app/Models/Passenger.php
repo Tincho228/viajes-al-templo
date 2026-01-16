@@ -25,20 +25,31 @@ class Passenger extends Model
         'is_authorized',
         'ward_id',
         'user_id',
+        'trip_id',
+        'seat_id',
     ];
     public function user()
     {
         // One passanger belongs to one ward
         return $this->belongsTo(User::class);
     }
-    public function appointments() {
+    
+    public function appointments() 
+    {
         // Many passengers belong to many appointments
         return $this->belongsToMany(Appointment::class);
     }
+
     public function ward()
     {
         // One passanger belongs to one ward
         return $this->belongsTo(Ward::class);
+    }
+
+    public function seat()
+    {
+        // One passanger has one seat
+        return $this->belongsTo(Seat::class);
     }
 
     public function payments()

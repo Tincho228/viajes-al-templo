@@ -13,8 +13,7 @@ class Seat extends Model
     protected $fillable = [
 
         'number',
-        'status',
-        'passenger_id',
+        'is_available',
         'trip_id',
         'user_id',
     ];
@@ -23,6 +22,12 @@ class Seat extends Model
     {
         // One seat belongs to one trip
         return $this->belongsTo(Trip::class);
+    }
+
+    public function passenger()
+    {
+        // One seat belongs to one passenger
+        return $this->hasOne(Passenger::class);
     }
 
     public function payments()

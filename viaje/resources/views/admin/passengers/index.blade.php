@@ -8,7 +8,7 @@
         </flux:breadcrumbs.item>
     </flux:breadcrumbs>
 
-    <a href="{{ route('admin.passengers.create') }}" class="text-white bg-blue-700 text-xs p-2">
+    <a href="{{ route('admin.trips.passengers.create', 11) }}" class="text-white bg-blue-700 text-xs p-2">
         Nuevo
     </a>
 
@@ -42,6 +42,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Barrio
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Asiento
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Editar
@@ -78,6 +81,9 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $passenger->ward->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $passenger->seat->number }}
                         </td>
                     
                         <td class="px-6 py-4">
