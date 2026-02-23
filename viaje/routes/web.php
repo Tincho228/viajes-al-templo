@@ -5,8 +5,12 @@ use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 })->name('home');
+
+Route::get('/landing', function () {
+    return view('landing');
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
